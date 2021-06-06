@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.nickname.myoji.bughouse.R
 
 class ListActivity : AppCompatActivity() {
-    private val taskList: List<Task> = listOf(
+    private var taskList: MutableList<Task> = mutableListOf(
         Task("Task 1"),
         Task("Task 2"),
         Task("Task 3")
@@ -21,23 +21,24 @@ class ListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list)
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        val addButton: Button = findViewById(R.id.button)
+        val addButton: Button = findViewById(R.id.add_button)
         val editText: EditText = findViewById(R.id.edit_text)
 
         val adapter = TaskAdapter(this, object: TaskAdapter.ItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(this@ListActivity, DetailActivity::class.java)
                 intent.putExtra("TASK_NAME", taskList[position].name)
+                startActivity(intent)
             }
         })
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
         adapter.addAll(taskList)
 
         addButton.setOnClickListener {
             val name = editText.text.toString()
             taskList.add(Task(name))
-            adapter.addAll(taskList)
         }
     }
 }
