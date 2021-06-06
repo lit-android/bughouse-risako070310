@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".count.CountActivity"/>
+        <activity android:name=".save.SaveActivity"/>
         <activity android:name=".load.LoadActivity"/>
+        <activity android:name=".list.ListActivity" />
     </application>
 
 </manifest>
